@@ -7,6 +7,18 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+---
+
+# Medical Appointment App
+A basic Laravel application designed to manage medical appointments, streamline scheduling, and organize doctor-patient interactions efficiently.
+
+### Key Features:
+* **Patient Management:** Easily register and maintain patient records.
+* **Appointment Scheduling:** Book, track, and manage medical consultations.
+* **Doctor Directory:** Manage medical staff, specialties, and availability.
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
