@@ -19,6 +19,25 @@ A basic Laravel application designed to manage medical appointments, streamline 
 
 ---
 
+## ✅ Hitos Implementados
+
+Se han completado las fases iniciales de configuración y estructuración del sistema:
+
+### Issue 1 — Configuración Inicial del Proyecto
+Se ajustaron los parámetros base del entorno para alinearlos con el mercado local y asegurar la persistencia de datos.
+* **Idioma:** Se estableció el lenguaje por defecto en español (`es`) en `config/app.php`.
+* **Zona Horaria:** Configurada correctamente (ej. `America/Merida`).
+* **Base de Datos:** Conexión MySQL establecida mediante el archivo `.env`.
+* **Migraciones:** Se ejecutó `php artisan migrate` con éxito, preparando la estructura inicial de tablas.
+
+### Issue 2 — Rutas y Vista de Administración
+Se habilitó el área de gestión para el perfil de administrador.
+* **Rutas:** Creación y verificación de la ruta `/admin`.
+* **Controladores:** Implementación del `AdminController` para centralizar la lógica de administración.
+* **Interfaz:** Generación de la vista básica administrativa, confirmando su acceso y renderizado correcto.
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
@@ -39,32 +58,9 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
