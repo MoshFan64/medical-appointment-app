@@ -30,7 +30,16 @@
             'href' => '#',
             'active' => false,
         ],
-    ];
+        [
+            'header' => 'Gestión',
+        ],
+        [
+            'name' => 'Gestión de usuarios',
+            'icon' => 'fa-solid fa-shield-halved',
+            'href' => route('admin.roles.index'),
+            'active' => request()->routeIs('admin.roles*')
+        ]
+            ];
 @endphp
 
 {{-- Usamos style="margin-top: 64px;" para forzar el descenso sin importar las clases --}}

@@ -15,11 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Llama a los seeders creados
+        $this->call(RoleSeeder::class);
+        // Crea usuario de prueba cada vez que se ejecuten las migraciones
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => bcrypt('Laravel2020')
         ]);
     }
 }

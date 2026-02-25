@@ -28,7 +28,7 @@
         @include('layouts.includes.admin.navigation')
 
         {{-- 2. Incluimos el sidebar lateral --}}
-        @include('layouts.includes.sidebar')
+        @include('layouts.includes.admin.sidebar')
 
         {{-- 3. EL BLOQUE PRINCIPAL: Aquí es donde va el contenido dinámico --}}
         <div class="p-4 sm:ml-64">
