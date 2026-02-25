@@ -1,3 +1,7 @@
+@props([
+    'breadcrumbs' => [], //Array vacío por defecto
+])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -29,8 +33,10 @@
         {{-- 3. EL BLOQUE PRINCIPAL: Aquí es donde va el contenido dinámico --}}
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-                {{ $slot }}
+                @include('layouts.includes.admin.breadcrumb')
             </div>
+            {{ $slot }}
+
         </div>
 
         @stack('modals')
