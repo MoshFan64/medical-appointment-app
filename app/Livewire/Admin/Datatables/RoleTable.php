@@ -2,12 +2,34 @@
 
 namespace App\Livewire\Admin\Datatables;
 
-use Livewire\Component;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Spatie\Permission\Models\Role;
+use Vtiful\Kernel\Format;
 
-class RoleTable extends Component
+class RoleTable extends DataTableComponent
 {
-    public function render()
+    protected $model = Role::class;
+
+    public function configure(): void
     {
-        return view('livewire.admin.datatables.role-table');
+        $this->setPrimaryKey('id');
+    }
+
+    public function columns(): array
+    {
+        return [
+            Column::make("Id", "id")
+                ->sortable(),
+            Column::make("Nombre", "name")
+                ->sortable(),
+            Column::make("Fecha", "created_at")
+                ->sortable()
+                ->format(function($value)){
+                    return $value->format('D-m-Y');
+                }
+            Column::make("Updated at", "updated_at")
+                ->sortable(),
+        ];
     }
 }
