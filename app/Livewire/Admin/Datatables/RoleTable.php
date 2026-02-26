@@ -16,20 +16,23 @@ class RoleTable extends DataTableComponent
         $this->setPrimaryKey('id');
     }
 
-    public function columns(): array
-    {
-        return [
-            Column::make("Id", "id")
-                ->sortable(),
-            Column::make("Nombre", "name")
-                ->sortable(),
-            Column::make("Fecha", "created_at")
-                ->sortable()
-                ->format(function($value)){
-                    return $value->format('D-m-Y');
-                }
-            Column::make("Updated at", "updated_at")
-                ->sortable(),
+    public function columns(): array{
+    return [
+        Column::make("Id", "id")
+            ->sortable(),
+
+        Column::make("Nombre", "name")
+            ->sortable(),
+
+        Column::make("Fecha", "created_at")
+            ->sortable() // Eliminado el ";" que estaba aquí
+            ->format(fn($value) => $value ? $value->format('d-m-Y') : ''), // Corregido el cierre y simplificado
+
+        Column::make("Updated at", "updated_at")
+            ->sortable(), // Añadida coma necesaria
+
+        Column::make("Acciones")
+            ->label(fn($row) => view('admin.roles.actions', ['role' => $row])), // Añadida coma necesaria
         ];
     }
 }
