@@ -1,15 +1,15 @@
-<x-admin-layout title="Roles" :breadcrumbs=[
+<x-admin-layout title="Roles" :breadcrumbs="[
     [
-        'name' => 'Dashboard'
+        'name' => 'Dashboard',
         'route' => route('admin.roles.index')
     ],
     [
-        'name' => 'Roles'
+        'name' => 'Roles',
         'route' => route('admin.roles.create')
     ],
     [
         'name' => 'Editar'
     ]
-]>
+]">
 
 </x-admin-layout>
