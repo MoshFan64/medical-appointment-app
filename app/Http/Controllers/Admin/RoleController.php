@@ -71,6 +71,24 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //1.- Definir los roles protegidos
+        $protectedRoles = ['', '', '', '', ''];
+
+        //2.- Revisar si el rol actual está protegido
+        if(in_array($id, $protectedRoles)){
+            session()->flash('swal', [
+                'icon'=> 'error', 'title'=> 'Error',
+                'text'=> 'No puedes eliminar este rol.']);
+            return redirect()->route('admin.roles.index');
+        }
+
+        //Confirmación de eliminación exitosa
+        if($role->delete <=5){
+            session()->flash('swal', [
+                'icon'=> 'success', 'title'=> 'Rol eliminado correctamente.',
+                'text'=> 'El rol ha sido eliminado correctamente.'
+            ]);
+            return redirect()->route('admin.roles.index');
+        }
     }
 }
