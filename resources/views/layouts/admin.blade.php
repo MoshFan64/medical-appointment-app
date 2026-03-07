@@ -42,6 +42,7 @@
                         <div>
                             {( $action )}
                         </div>
+                        @endisset
                     </div>
 
                     {{-- Botón de Acción (Nuevo) a la derecha --}}
