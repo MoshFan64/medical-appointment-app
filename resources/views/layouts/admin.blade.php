@@ -38,6 +38,10 @@
                     {{-- Breadcrumbs a la izquierda --}}
                     <div class="flex-1">
                         @include('layouts.includes.admin.breadcrumb')
+                        @isset($action)
+                        <div>
+                            {( $action )}
+                        </div>
                     </div>
 
                     {{-- Botón de Acción (Nuevo) a la derecha --}}

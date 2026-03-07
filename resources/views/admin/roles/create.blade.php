@@ -5,15 +5,25 @@
     ],
     [
         'name' => 'Roles',
-        'route' => route('admin.roles.create')
+        'route' => route('admin.roles.index')
     ],
     [
-        'name' => 'Editar'
+        'name' => 'Crear'
     ]
 ]">
 
     <x-wire-card>
-        <form action="{{ route('admin.roles.store') }}">
+        <form action="{{ route('admin.roles.store') }}" method="POST">
+            @csrf
+            <x-wire-input label="Nombre" name="name" placeholder="Nombre del rol"
+                value="{{ old('name') }}">
+            </x-wire-input>
+            <div class="flex justify-end mt-4">
+                <x-wire-button blue type="submit">
+                    <i class="fa-solid fa-plus"></i>
+                    Crear y guardar
+                </x-wire-button>
+            </div>
 
         </form>
     </x-wire-card>
