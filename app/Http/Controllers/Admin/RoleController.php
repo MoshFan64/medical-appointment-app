@@ -36,10 +36,11 @@ class RoleController extends Controller
         Role::create(['name'=> $request->name]);
 
         //Confirmación de operación exitosa
-        session()->flash('swal', ['icon' => 'success', 'title' => 'Rol creado correctamente']);
+        session()->flash('swal', ['icon' => 'success', 'title' => 'Rol creado correctamente',
+        'text' => 'El rol ha sido creado correctamente.']);
 
         //Redireccionará a la tabla principal
-        return redirect('admin.roles.index')->with('success','Role created successfully');
+        return redirect(route('admin.roles.index'))->with('success','Role created successfully');
     }
 
     /**
@@ -55,15 +56,23 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.roles.edit', compact($role));
+        return view('admin.roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        //Valida que se inserte bien y que excluya la fila que se edita
+        $request->validate(['name' => 'required|unique:roles,name,']);
+
+        //Si pasa la validación, actualizará el rol
+        $role->update(['name' => $request->name]);
+
+        //Confirmación de operación exitosa
+        session()->flash('swal', ['icon' => 'success', 'title' => 'Rol actualizado correctamente',
+        'text' => 'El rol ha sido actualizado correctamente.']);
     }
 
     /**

@@ -24,7 +24,6 @@
                     Crear y guardar
                 </x-wire-button>
             </div>
-
         </form>
     </x-wire-card>
 
