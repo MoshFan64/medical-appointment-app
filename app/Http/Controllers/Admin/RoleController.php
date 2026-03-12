@@ -78,10 +78,13 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
         //1.- Definir los roles protegidos
         $protectedRoles = ['', '', '', '', ''];
+
+        //Borrar el elemento
+        $role->delete();
 
         //2.- Revisar si el rol actual está protegido
         if(in_array($id, $protectedRoles)){
