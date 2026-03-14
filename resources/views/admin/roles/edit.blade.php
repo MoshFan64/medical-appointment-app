@@ -22,7 +22,7 @@
             <div class="flex justify-end mt-4">
                 <x-wire-button blue type="submit">
                     <i class="fa-solid fa-plus"></i>
-                    Actualizar
+                    Actualizar y guardar
                 </x-wire-button>
             </div>
         </form>
