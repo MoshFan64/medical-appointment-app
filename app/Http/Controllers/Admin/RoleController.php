@@ -87,7 +87,7 @@ class RoleController extends Controller
         $role->delete();
 
         //2.- Revisar si el rol actual está protegido
-        if(in_array($id, $protectedRoles)){
+        if(in_array($role->id, $protectedRoles)){
             session()->flash('swal', [
                 'icon'=> 'error', 'title'=> 'Error',
                 'text'=> 'No puedes eliminar este rol.']);
