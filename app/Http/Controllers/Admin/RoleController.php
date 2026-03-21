@@ -65,7 +65,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         //Valida que se inserte bien y que excluya la fila que se edita
-        $request->validate(['name' => 'required|unique:roles,name,']);
+        $request->validate(['name' => 'required|unique:roles,name,'. $role->id]);
 
         //Si pasa la validación, actualizará el rol
         $role->update(['name' => $request->name]);

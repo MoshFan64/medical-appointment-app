@@ -19,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        //La siguiente linea apaga el CSRF, solo para pruebas
+        $middleware->validateCsrfTokens(except: ['admin/roles/*']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

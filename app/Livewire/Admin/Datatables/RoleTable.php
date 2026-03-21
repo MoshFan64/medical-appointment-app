@@ -28,7 +28,7 @@ class RoleTable extends DataTableComponent
             ->sortable() // Eliminado el ";" que estaba aquí
             ->format(fn($value) => $value ? $value->format('d-m-Y') : ''), // Corregido el cierre y simplificado
 
-        Column::make("Updated at", "updated_at")
+        Column::make("Actualizado el", "updated_at")
             ->sortable(), // Añadida coma necesaria
 
         Column::make("Acciones")

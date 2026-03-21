@@ -40,7 +40,7 @@
                         @include('layouts.includes.admin.breadcrumb')
                         @isset($action)
                         <div>
-                            {( $action )}
+                            {{ $action }}
                         </div>
                         @endisset
                     </div>
@@ -70,7 +70,7 @@
 
         @livewireScripts
 
-        //Busca todos los elementos para borrar
+        {{-- Busca todos los elementos para borrar --}}
         <script>
             forms = document.querySelectorAll('.delete-form');
             forms.forEach(form => {
