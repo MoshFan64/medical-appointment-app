@@ -38,14 +38,9 @@
                     {{-- Breadcrumbs a la izquierda --}}
                     <div class="flex-1">
                         @include('layouts.includes.admin.breadcrumb')
-                        @isset($action)
-                        <div>
-                            {{ $action }}
-                        </div>
-                        @endisset
                     </div>
 
-                    {{-- Botón de Acción (Nuevo) a la derecha --}}
+                    {{-- Botón de Acción (Solo uno) a la derecha --}}
                     @isset($action)
                         <div class="flex-shrink-0">
                             {{ $action }}
@@ -53,7 +48,7 @@
                     @endisset
                 </div>
 
-                {{-- Contenedor del contenido (aquí caerá la tabla de Livewire) --}}
+                {{-- Contenedor del contenido --}}
                 <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
                     {{ $slot }}
                 </div>

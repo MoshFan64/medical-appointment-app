@@ -1,7 +1,7 @@
 <x-admin-layout :breadcrumbs="[
     [
         'name' => 'Dashboard',
-        'href' => 'route('layouts.includes.admin.dashboard')',
+        'href' => route('layouts.includes.admin.dashboard'),
     ],
     [
         'name' => 'Ejemplo'

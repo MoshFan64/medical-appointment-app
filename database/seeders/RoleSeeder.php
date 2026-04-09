@@ -15,15 +15,16 @@ class RoleSeeder extends Seeder
     {
         //Definir roles
         $roles = [
-            'Paciente',
-            'Doctor',
-            'Recepcionista',
-            'Administrador'
+            ['name' => 'Administrador', 'is_system' => true],
+            ['name' => 'Doctor', 'is_system' => true],
+            ['name' => 'Paciente', 'is_system' => true],
+            ['name' => 'Recepcionista', 'is_system' => true],
+            ['name' => 'Super Administrador', 'is_system' => true]
         ];
 
         //Crear roles
         foreach ($roles as $role){
-            Role::create(['name' => $role]);
+            Role::create($role);
         }
     }
 }

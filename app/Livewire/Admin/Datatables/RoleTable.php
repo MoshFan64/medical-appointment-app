@@ -31,6 +31,9 @@ class RoleTable extends DataTableComponent
         Column::make("Actualizado el", "updated_at")
             ->sortable(), // Añadida coma necesaria
 
+        Column::make("Sistema", "is_system")
+            ->hideIf(true),
+
         Column::make("Acciones")
             ->label(fn($row) => view('admin.roles.actions', ['role' => $row])), // Añadida coma necesaria
         ];
