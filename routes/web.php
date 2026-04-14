@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/admin');
@@ -21,4 +22,5 @@ Route::middleware([
 //Gestión de roles
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('roles', RoleController::class);
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 });

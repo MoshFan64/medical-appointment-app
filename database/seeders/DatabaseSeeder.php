@@ -2,28 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+// No necesitas importar User aquí si vas a usar el call()
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Llama a los seeders creados
+        // 1. Primero creamos los roles
         $this->call(RoleSeeder::class);
-        // Crea usuario de prueba cada vez que se ejecuten las migraciones
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('Laravel2020'),
-            'id_number' => '123456789',
-            'phone' => '9999999999',
-            'address' => 'Test Address'
-        ])->assignRole('Administrador');
+
+        // 2. Luego llamamos al seeder de usuarios
+        // Esto evita tener código repetido y errores de importación aquí
+        $this->call(UserSeeder::class);
     }
 }

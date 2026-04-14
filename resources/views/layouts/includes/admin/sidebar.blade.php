@@ -34,7 +34,7 @@
             'header' => 'Gestión',
         ],
         [
-            'name' => 'Gestión de usuarios',
+            'name' => 'Gestión de roles',
             'icon' => 'fa-solid fa-shield-halved',
             'href' => route('admin.roles.index'),
             'active' => request()->routeIs('admin.roles*')
