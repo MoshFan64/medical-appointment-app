@@ -38,6 +38,12 @@
             'icon' => 'fa-solid fa-shield-halved',
             'href' => route('admin.roles.index'),
             'active' => request()->routeIs('admin.roles*')
+        ],
+        [
+            'name' => 'Gestión de usuarios',
+            'icon' => 'fa-solid fa-users',
+            'href' => route('admin.users.index'),
+            'active' => request()->routeIs('admin.users*')
         ]
             ];
 @endphp
