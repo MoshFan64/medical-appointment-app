@@ -5,13 +5,14 @@ namespace App\Livewire\Admin\Datatables;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserTable extends DataTableComponent
 {
     //protected $model = User::class;
 
     // Este método define el modelo
-    public function builder()
+    public function builder(): Builder
     {
         // Devuelve la relación con los roles
         return User::query()
