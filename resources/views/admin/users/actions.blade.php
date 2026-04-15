@@ -22,7 +22,7 @@
                 type="submit"
                 red
                 xs
-                onclick="return confirm('¿Estás seguro de que deseas eliminar este rol?')">
+                onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">
                 <i class="fa-solid fa-trash"></i>
             </x-wire-button>
     </form>
