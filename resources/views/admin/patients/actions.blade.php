@@ -9,22 +9,10 @@
     @else
             {{-- Roles normales --}}
         <x-wire-button
-            href="{{ route('admin.roles.edit', $role) }}"
+            href="{{ route('admin.patients.edit', $patient) }}"
             blue
             xs>
             <i class="fa-solid fa-pen-to-square"></i>
         </x-wire-button>
-
-        <form action="{{ route('admin.roles.destroy', $role) }}" method="POST" class="delete-form">
-            @csrf
-            @method('DELETE')
-            <x-wire-button
-                type="submit"
-                red
-                xs
-                onclick="return confirm('¿Estás seguro de que deseas eliminar este rol?')">
-                <i class="fa-solid fa-trash"></i>
-            </x-wire-button>
-        </form>
     @endif
 </div>

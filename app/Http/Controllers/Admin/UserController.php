@@ -65,4 +65,8 @@ class UserController extends Controller
     {
         //
     }
+    //Relación uno a uno
+    public function patient(User $user){
+        return $this->hasOne(Patient::class);
+    }
 }

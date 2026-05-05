@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         // 2. Luego llamamos al seeder de usuarios
         // Esto evita tener código repetido y errores de importación aquí
         $this->call(UserSeeder::class);
+
+        $this->call(BloodTypeSeeder::class);
     }
 }
