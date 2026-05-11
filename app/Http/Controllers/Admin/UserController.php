@@ -69,4 +69,11 @@ class UserController extends Controller
     public function patient(User $user){
         return $this->hasOne(Patient::class);
     }
+
+    //Si el usuario creado es un pacinte, envia al modulo de pacientes
+    if($user::Role('Paciente')){
+        //Creamos un registro para un paciente
+        $patient = $user->patient()->create();
+        return redirect()->route('admin.patients.edit', $patient);
+    }
 }

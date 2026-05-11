@@ -46,7 +46,7 @@
             'active' => request()->routeIs('admin.users*')
         ],
         [
-            'name' => 'Gestión de Pacientes',
+            'name' => 'Gestión de pacientes',
             'icon' => 'fa-solid fa-user-injured',
             'href' => route('admin.patients.index'),
             'active' => request()->routeIs('admin.patients*')
