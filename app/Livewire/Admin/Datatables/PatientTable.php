@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Datatables;
 
+use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Patient;

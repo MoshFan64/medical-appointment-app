@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     protected $fillable = [
+        'user_id',
         'allergies',
         'chronic_conditions',
         'surgical_history',
@@ -18,7 +19,7 @@ class Patient extends Model
     ];
 
     //Relación uno a uno con el modelo User
-    public function patient(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
 }

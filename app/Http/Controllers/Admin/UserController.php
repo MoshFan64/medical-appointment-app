@@ -31,7 +31,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 1. Validar los datos que vienen del formulario
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        // 2. Crear el usuario
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'id_number' => $request->id_number,
+            'phone'     => $request->phone,
+            'address'   => $request->address,
+            'role'      => $request->role
+        ]);
+
+        // 3. Asignar el rol (usando Spatie)
+        $user->assignRole($request->role);
+
+        // 4. AQUÍ VA TU BLOQUE IF
+        if ($user->hasRole('Paciente')) {
+            // Creamos el registro en la tabla pacientes
+            $patient = $user->patient()->create();
+
+            // Redirigimos a completar su perfil médico
+            return redirect()->route('admin.patients.edit', $patient)
+                            ->with('info', 'Usuario creado como paciente. Por favor, complete su información.');
+        }
+
+        // Si no es paciente, regresamos al índice de usuarios
+        return redirect()->route('admin.users.index')
+                        ->with('info', 'Usuario creado con éxito.');
     }
 
     /**
@@ -64,16 +97,5 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
-    }
-    //Relación uno a uno
-    public function patient(User $user){
-        return $this->hasOne(Patient::class);
-    }
-
-    //Si el usuario creado es un pacinte, envia al modulo de pacientes
-    if($user::Role('Paciente')){
-        //Creamos un registro para un paciente
-        $patient = $user->patient()->create();
-        return redirect()->route('admin.patients.edit', $patient);
     }
 }
