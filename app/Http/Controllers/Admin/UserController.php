@@ -89,7 +89,42 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // 1. Validar los datos
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'id_number' => 'required',
+        'phone' => 'required',
+        'role' => 'required' // Asegúrate de que el select en tu vista se llame "role"
+    ]);
+
+    // 2. Actualizar datos básicos del usuario
+    $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'id_number' => $request->id_number,
+        'phone' => $request->phone,
+        'address' => $request->address,
+    ]);
+
+    // 3. ¡IMPORTANTE! Sincronizar el rol antes de preguntar por él
+    $user->syncRoles($request->role);
+
+    // 4. Lógica de redirección
+    // Usamos el usuario actualizado para verificar el rol recién asignado
+    if ($user->hasRole('Paciente')) {
+
+        // Verificamos si ya existe el registro de paciente para no duplicarlo
+        if (!$user->patient) {
+            $user->patient()->create();
+        }
+
+        return redirect()->route('admin.users.index')
+            ->with('info', 'Usuario actualizado y vinculado como Paciente.');
+    }
+
+    return redirect()->route('admin.users.index')
+        ->with('info', 'Usuario actualizado con éxito.');
     }
 
     /**

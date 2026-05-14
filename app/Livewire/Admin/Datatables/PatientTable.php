@@ -9,13 +9,11 @@ use App\Models\Patient;
 
 class PatientTable extends DataTableComponent
 {
-    //protected $model = Patient::class;
-    // Este método define el modelo
     public function builder(): Builder
     {
-        // Devuelve la relación con los roles
+        // Cargamos la relación 'user' para acceder a sus datos
         return Patient::query()
-            ->with('user'); // Carga la relación de roles para evitar consultas adicionales
+            ->with('user');
     }
 
     public function configure(): void
@@ -28,12 +26,20 @@ class PatientTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
-            Column::make("Nombre", "name")
-                ->sortable(),
+
+            // CAMBIO: Apuntamos a la relación user.name
+            Column::make("Nombre", "user.name")
+                ->sortable()
+                ->searchable(),
+
             Column::make("Número de identificación", "user.id_number")
+                ->sortable()
+                ->searchable(),
+
+            // CAMBIO: Apuntamos a user.phone (ya que en patients no existe)
+            Column::make("Teléfono", "user.phone")
                 ->sortable(),
-            Column::make("Teléfono", "phone")
-                ->sortable(),
+
             Column::make("Acciones")
                 ->label(function ($row) {
                     return view('admin.patients.actions', ['patient' => $row]);

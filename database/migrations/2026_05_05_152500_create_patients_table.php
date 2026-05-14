@@ -23,7 +23,6 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('blood_types')
                 ->onDelete('set null');
-            $table->string('name');
             $table->timestamps();
 
             $table->string('allergies')
