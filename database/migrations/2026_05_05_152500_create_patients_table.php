@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             //Añadimos campos
-            $table->foreignId('user')->constrained('users')
+            $table->foreignId('user_id')->constrained('users')
             //Si borro un usuario, que se borre el paciente también
             ->onDelete('cascade');
 
