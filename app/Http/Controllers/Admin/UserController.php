@@ -80,7 +80,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view("admin.users.edit", compact('user'));
+        $roles = Role::all();
+        return view("admin.users.edit", compact('user', 'roles'));
     }
 
     /**
