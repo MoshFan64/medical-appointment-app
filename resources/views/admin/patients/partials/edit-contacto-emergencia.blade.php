@@ -7,12 +7,28 @@
             value="{{ old('emergency_contact_name', $patient->emergency_contact_name) }}">
         </x-wire-input>
 
+        @error('blood_type_id')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <div class="mt-4">
         <x-wire-input label="Relación" name="emergency_contact_relationship" placeholder="Relación con el paciente (ej: padre, hermano, amigo...)"
             value="{{ old('emergency_contact_relationship', $patient->emergency_contact_relationship) }}">
         </x-wire-input>
 
+        @error('emergency_contact_relationship')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <div class="mt-4">
         <x-wire-phone label="Teléfono" name="emergency_contact_phone" mask="(###) ###-####" placeholder="(999) 999-9999"
             value="{{ old('emergency_contact_phone', $patient->emergency_contact_phone) }}">
         </x-wire-phone>
+
+        @error('emergency_contact_phone')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+        @enderror
     </div>
 </div>

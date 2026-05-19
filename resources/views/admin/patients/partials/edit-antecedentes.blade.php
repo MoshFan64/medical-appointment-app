@@ -5,6 +5,10 @@
         <textarea name="allergies" rows="3"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Listado de alergias (medicamentos, alimentos, etc.)">{{ old('allergies', $patient->allergies) }}</textarea>
+
+            @error('allergies')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+            @enderror
     </div>
 
     {{-- Condiciones Crónicas --}}
@@ -13,6 +17,10 @@
         <textarea name="chronic_conditions" rows="3"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Ej: Diabetes, Hipertensión...">{{ old('chronic_conditions', $patient->chronic_conditions) }}</textarea>
+
+            @error('chronic_conditions')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+            @enderror
     </div>
 
     {{-- Historial Quirúrgico --}}
@@ -21,6 +29,10 @@
         <textarea name="surgical_history" rows="3"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Cirugías previas y fechas aproximadas...">{{ old('surgical_history', $patient->surgical_history) }}</textarea>
+
+            @error('surgical_history')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+            @enderror
     </div>
 
     {{-- Historia Familiar --}}
@@ -29,5 +41,9 @@
         <textarea name="family_history" rows="3"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Antecedentes médicos relevantes en la familia...">{{ old('family_history', $patient->family_history) }}</textarea>
+
+            @error('family_history')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+            @enderror
     </div>
 </div>

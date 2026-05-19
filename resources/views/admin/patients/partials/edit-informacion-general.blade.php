@@ -30,5 +30,9 @@
         <x-wire-textarea label="Observaciones" name="observations" placeholder="Notas relevantes sobre el paciente...">{{ old('observations', $patient->observations) }}
 
         </x-wire-textarea>
+
+        @error('blood_type_id')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+        @enderror
     </div>
 </div>

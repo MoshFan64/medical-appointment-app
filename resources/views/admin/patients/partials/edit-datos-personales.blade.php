@@ -30,5 +30,9 @@
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Notas relevantes sobre el paciente...">{{ old('observations', $patient->observations) }}</textarea>
         </div>
+
+        @error('observations')
+            <p class="mt-1 text-xs text-red-600 font-semibold">{{ $message }}</p>
+        @enderror
     </div>
 </div>
