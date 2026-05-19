@@ -58,7 +58,23 @@ class PatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-        //
+        $data = $request->validate([
+            'blood_type_id' => 'nullable|exists:blood_types,id',
+            'allergies' => 'nullable|string|max:255',
+            'chronic_conditions' => 'nullable|string|max:255',
+            'surgical_history' => 'nullable|string|max:255',
+            'family_history' => 'nullable|string|max:255',
+            'observations' => 'nullable|string|max:255',
+            'emergency_contact_name' => 'nullable|string|max:255',
+            'emergency_contact_phone' => 'nullable|string|max:20',
+            'emergency_contact_relationship' => 'nullable|string|max:255',
+        ], [
+        // Mensajes personalizados en español por si el usuario excede el límite
+        'max' => 'El campo :attribute no puede tener más de :max caracteres.',
+        ]);
+        $patient->update($data);
+        session()->flash('swal', ['icon' => 'success', 'title' => '¡Éxito!', 'text' => 'Información del paciente actualizada correctamente.']);
+        return redirect()->route('admin.patients.edit', $patient)->with('success', 'Información del paciente actualizada correctamente.');
     }
 
     /**

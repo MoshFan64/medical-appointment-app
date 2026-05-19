@@ -19,4 +19,16 @@
             <span class="text-gray-900">{{ $patient->updated_at->format('d/m/Y H:i') }}</span>
         </div>
     </div>
+
+    <div class="grid lg:grid cols-2 gap-4">
+        <x-wire-native-select label="Tipo de sangre" class="mb-4" name="blood_type_id">
+            <option value="">Selecciona un tipo de sangre</option>
+            @foreach($blood_types as $bloodType)
+                <option value="{{ $bloodType->id }}" @selected(old('blood_type_id', $patient->blood_type_id) == $bloodType->id)>{{ $bloodType->name }}</option>
+            @endforeach
+        </x-wire-native-select>
+        <x-wire-textarea label="Observaciones" name="observations" placeholder="Notas relevantes sobre el paciente...">{{ old('observations', $patient->observations) }}
+
+        </x-wire-textarea>
+    </div>
 </div>

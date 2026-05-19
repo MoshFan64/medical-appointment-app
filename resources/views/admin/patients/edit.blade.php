@@ -9,7 +9,7 @@
         @method('PUT')
 
         {{-- Encabezado con foto y acciones --}}
-        <x-wire-card class="mb-4">
+        <x-wire-card class="mb-8">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <img src="{{ $patient->user->profile_photo_url }}" alt="{{ $patient->user->name }}" class="w-12 h-12 rounded-full object-cover">
@@ -86,6 +86,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class ="grid lg:grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="text-gray-500 font-semibold">
+                                            Teléfono:
+                                        </span>
+                                        <span class="text-gray-900 text-sm ml-1">
+                                            {{ $patient->user->phone ?? 'No registrado' }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500 font-semibold">
+                                            Email:
+                                        </span>
+                                        <span class="text-gray-900 text-sm ml-1">
+                                            {{ $patient->user->email ?? 'No registrado' }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500 font-semibold">
+                                            Dirección:
+                                        </span>
+                                        <span class="text-gray-900 text-sm ml-1">
+                                            {{ $patient->user->address ?? 'No registrado' }}
+                                        </span>
+                                    </div>
+                                </div>
                         @includeIf('admin.patients.partials.edit-datos-personales')
                     </div>
 
