@@ -49,9 +49,9 @@
                     <x-wire-input
                         label="Número de Cédula Profesional (Licencia)"
                         placeholder="Ej. REG-748392-MX"
-                        name="license_number"
+                        name="medical_license_number"
                         icon="identification"
-                        value="{{ old('license_number', $doctor->medical_license_number) }}"
+                        value="{{ old('medical_license_number', $doctor->medical_license_number) }}"
                     />
                 </div>
 

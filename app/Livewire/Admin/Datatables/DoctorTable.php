@@ -42,7 +42,7 @@ class DoctorTable extends DataTableComponent
             Column::make("Especialidad")
                 ->label(fn($row) => $row->specialty->name ?? 'No asignada'),
 
-            Column::make("Cédula Profesional", "license_number")
+            Column::make("Cédula Profesional", "medical_license_number")
                 ->sortable()
                 ->searchable(),
 

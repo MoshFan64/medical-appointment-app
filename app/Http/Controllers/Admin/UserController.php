@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -36,6 +37,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
+            'role' => 'required|exists:roles,name',
         ]);
 
         // 2. Crear el usuario
@@ -46,13 +48,29 @@ class UserController extends Controller
             'id_number' => $request->id_number,
             'phone'     => $request->phone,
             'address'   => $request->address,
-            'role'      => $request->role
         ]);
 
         // 3. Asignar el rol (usando Spatie)
         $user->assignRole($request->role);
 
-        // 4. AQUÍ VA TU BLOQUE IF
+        if ($user->hasRole('Doctor')) {
+            $specialty = Specialty::first() ?? Specialty::create([
+                'name' => 'General',
+                'description' => 'Especialidad temporal creada automáticamente.',
+            ]);
+
+            $doctor = $user->doctor()->create([
+                'specialty_id' => $specialty->id,
+                'medical_license_number' => 'TEMP-' . $user->id . '-' . now()->timestamp,
+                'phone_clinic' => null,
+                'biography' => null,
+                'is_active' => true,
+            ]);
+
+            return redirect()->route('admin.doctors.edit', $doctor)
+                            ->with('info', 'Usuario creado como doctor. Complete su información médica.');
+        }
+
         if ($user->hasRole('Paciente')) {
             // Creamos el registro en la tabla pacientes
             $patient = $user->patient()->create();
@@ -62,7 +80,7 @@ class UserController extends Controller
                             ->with('info', 'Usuario creado como paciente. Por favor, complete su información.');
         }
 
-        // Si no es paciente, regresamos al índice de usuarios
+        // Si no es paciente ni doctor, regresamos al índice de usuarios
         return redirect()->route('admin.users.index')
                         ->with('info', 'Usuario creado con éxito.');
     }
@@ -90,41 +108,47 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         // 1. Validar los datos
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'id_number' => 'required',
-        'phone' => 'required',
-        'role' => 'required' // Asegúrate de que el select en tu vista se llame "role"
-    ]);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'id_number' => 'required',
+            'phone' => 'required',
+            'role' => 'required|exists:roles,name',
+        ]);
 
-    // 2. Actualizar datos básicos del usuario
-    $user->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'id_number' => $request->id_number,
-        'phone' => $request->phone,
-        'address' => $request->address,
-    ]);
+        // 2. Actualizar datos básicos del usuario
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'id_number' => $request->id_number,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
 
-    // 3. ¡IMPORTANTE! Sincronizar el rol antes de preguntar por él
-    $user->syncRoles($request->role);
+        // 3. Sincronizar el rol antes de preguntar por él
+        $user->syncRoles($request->role);
 
-    // 4. Lógica de redirección
-    // Usamos el usuario actualizado para verificar el rol recién asignado
-    if ($user->hasRole('Paciente')) {
+        if ($user->hasRole('Doctor') && !$user->doctor) {
+            $specialty = Specialty::first() ?? Specialty::create([
+                'name' => 'General',
+                'description' => 'Especialidad temporal creada automáticamente.',
+            ]);
 
-        // Verificamos si ya existe el registro de paciente para no duplicarlo
-        if (!$user->patient) {
+            $user->doctor()->create([
+                'specialty_id' => $specialty->id,
+                'medical_license_number' => 'TEMP-' . $user->id . '-' . now()->timestamp,
+                'phone_clinic' => null,
+                'biography' => null,
+                'is_active' => true,
+            ]);
+        }
+
+        if ($user->hasRole('Paciente') && !$user->patient) {
             $user->patient()->create();
         }
 
         return redirect()->route('admin.users.index')
-            ->with('info', 'Usuario actualizado y vinculado como Paciente.');
-    }
-
-    return redirect()->route('admin.users.index')
-        ->with('info', 'Usuario actualizado con éxito.');
+            ->with('info', 'Usuario actualizado con éxito.');
     }
 
     /**

@@ -21,12 +21,13 @@ class DoctorController extends Controller
     {
         $validated = $request->validate([
             'specialty_id'  => 'required|exists:specialties,id',
-            'medical_license_number' => 'required|string|max:50|unique:doctors,medical_license_number,' . $doctor->id,
+            'license_number' => 'required|string|max:50|unique:doctors,medical_license_number,' . $doctor->id,
             'phone_clinic'   => 'nullable|string|max:20',
             'biography'      => 'nullable|string|max:1500',
+            'is_active'      => 'sometimes|boolean',
             'profile_photo'   => 'nullable|image|max:2048', // Máximo 2MB
         ], [
-            'medical_license_number.unique' => 'Esta cédula profesional ya está registrada en el sistema.',
+            'license_number.unique' => 'Esta cédula profesional ya está registrada en el sistema.',
             'specialty_id.required' => 'Debe seleccionar una especialidad del catálogo.',
             'max' => 'El campo supera el límite de :max caracteres asignado.',
         ]);
@@ -39,13 +40,11 @@ class DoctorController extends Controller
         // 2. Se actualizan los datos médicos en la tabla de doctores
         $doctor->update([
             'specialty_id'  => $validated['specialty_id'],
-            'medical_license_number' => $validated['medical_license_number'],
-            'phone_clinic'   => $validated['phone_clinic'],
-            'biography'      => $validated['biography'],
+            'medical_license_number' => $validated['license_number'],
+            'phone_clinic'   => $validated['phone_clinic'] ?? null,
+            'biography'      => $validated['biography'] ?? null,
+            'is_active'      => $request->boolean('is_active'),
         ]);
-
-        // Actualización masiva segura mediante los campos validados
-        $doctor->update($validated);
 
         return redirect()->route('admin.doctors.edit', $doctor)
             ->with('info', 'El perfil del doctor y su especialidad se actualizaron correctamente.');

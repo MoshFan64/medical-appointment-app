@@ -55,10 +55,10 @@
 
                 {{-- Selección de Rol --}}
                 <div class="space-y-1">
-                    <x-wire-native-select name="role_id" label="Rol" required>
+                    <x-wire-native-select name="role" label="Rol" required>
                         <option value="">Selecciona un rol</option>
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" @selected(old('role_id') == $role->id)>
+                            <option value="{{ $role->name }}" @selected(old('role') == $role->name)>
                                 {{ $role->name }}
                             </option>
                         @endforeach
