@@ -50,8 +50,14 @@
             'icon' => 'fa-solid fa-user-injured',
             'href' => route('admin.patients.index'),
             'active' => request()->routeIs('admin.patients*')
+        ],
+        [
+            'name' => 'Gestión de doctores',
+            'icon' => 'fa-solid fa-user-md',
+            'href' => route('admin.doctors.index'),
+            'active' => request()->routeIs('admin.doctors*')
         ]
-            ];
+    ];
 @endphp
 
 {{-- Usamos style="margin-top: 64px;" para forzar el descenso sin importar las clases --}}
