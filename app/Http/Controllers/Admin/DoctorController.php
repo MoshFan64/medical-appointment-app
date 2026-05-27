@@ -21,7 +21,7 @@ class DoctorController extends Controller
     {
         $validated = $request->validate([
             'specialty_id'  => 'required|exists:specialties,id',
-            'license_number' => 'required|string|max:50|unique:doctors,medical_license_number,' . $doctor->id,
+            'medical_license_number' => 'required|string|max:50|unique:doctors,medical_license_number,' . $doctor->id,
             'phone_clinic'   => 'nullable|string|max:20',
             'biography'      => 'nullable|string|max:1500',
             'is_active'      => 'sometimes|boolean',

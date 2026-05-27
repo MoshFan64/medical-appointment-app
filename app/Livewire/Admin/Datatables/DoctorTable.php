@@ -34,10 +34,10 @@ class DoctorTable extends DataTableComponent
                 ->label(fn($row) => view('admin.doctors.partials.avatar', ['doctor' => $row])),
 
             Column::make("Nombre Médico")
-                ->label(fn($row) => $row->user->name)
-                ->searchable(fn(Builder $query, $searchTerm) =>
-                    $query->whereHas('user', fn($q) => $q->where('name', 'like', '%' . $searchTerm . '%'))
-                ),
+            ->label(fn($row) => $row->user->name ?? 'Sin usuario asignado') // <-- Agregamos el operador ??
+            ->searchable(fn(Builder $query, $searchTerm) =>
+                $query->whereHas('user', fn($q) => $q->where('name', 'like', '%' . $searchTerm . '%'))
+            ),
 
             Column::make("Especialidad")
                 ->label(fn($row) => $row->specialty->name ?? 'No asignada'),
