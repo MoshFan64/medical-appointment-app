@@ -27,7 +27,7 @@ class DoctorController extends Controller
             'is_active'      => 'sometimes|boolean',
             'profile_photo'   => 'nullable|image|max:2048', // Máximo 2MB
         ], [
-            'license_number.unique' => 'Esta cédula profesional ya está registrada en el sistema.',
+            'medical_license_number.unique' => 'Esta cédula profesional ya está registrada en el sistema.',
             'specialty_id.required' => 'Debe seleccionar una especialidad del catálogo.',
             'max' => 'El campo supera el límite de :max caracteres asignado.',
         ]);
@@ -40,7 +40,7 @@ class DoctorController extends Controller
         // 2. Se actualizan los datos médicos en la tabla de doctores
         $doctor->update([
             'specialty_id'  => $validated['specialty_id'],
-            'medical_license_number' => $validated['license_number'],
+            'medical_license_number' => $validated['medical_license_number'],
             'phone_clinic'   => $validated['phone_clinic'] ?? null,
             'biography'      => $validated['biography'] ?? null,
             'is_active'      => $request->boolean('is_active'),
