@@ -6,19 +6,21 @@
         [
             'name' => 'Pacientes',
             'icon' => 'fa-solid fa-user-injured',
-            'active' => false,
+            'active' => request()->routeIs('admin.patients*'),
             'submenu' => [
-                ['name' => 'Lista de pacientes', 'href' => '#'],
-                ['name' => 'Historial médico', 'href' => '#'],
+                // Conectado al CRUD de pacientes que hicimos anteriormente
+                ['name' => 'Lista de pacientes', 'href' => route('admin.patients.index')],
+                ['name' => 'Historial médico', 'href' => route('admin.patients.index')],
             ],
         ],
         [
             'name' => 'Citas Médicas',
             'icon' => 'fa-solid fa-calendar-check',
-            'active' => false,
+            'active' => request()->routeIs('admin.appointments*'),
             'submenu' => [
-                ['name' => 'Ver agenda', 'href' => '#'],
-                ['name' => 'Nueva cita', 'href' => '#'],
+                // Conectado al Listado principal y al Formulario del Módulo de Citas
+                ['name' => 'Ver agenda', 'href' => route('admin.appointments.index')],
+                ['name' => 'Nueva cita', 'href' => route('admin.appointments.create')],
             ],
         ],
         [
@@ -27,8 +29,8 @@
         [
             'name' => 'Doctores',
             'icon' => 'fa-solid fa-user-md',
-            'href' => '#',
-            'active' => false,
+            'href' => route('admin.doctors.index'),
+            'active' => request()->routeIs('admin.doctors*'),
         ],
         [
             'header' => 'Gestión',
@@ -56,6 +58,12 @@
             'icon' => 'fa-solid fa-user-md',
             'href' => route('admin.doctors.index'),
             'active' => request()->routeIs('admin.doctors*')
+        ],
+        [
+            'name' => 'Convenios de seguros',
+            'icon' => 'fa-solid fa-building-shield',
+            'href' => route('admin.insurances.index'),
+            'active' => request()->routeIs('admin.insurances*')
         ]
     ];
 @endphp
@@ -75,29 +83,41 @@
                             {{ $link['header'] }}
                         </div>
                     @elseif(isset($link['submenu']))
-                        <button type="button"
-                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            data-collapse-toggle="dropdown-{{ $index }}">
-                            <span class="w-6 h-6 inline-flex justify-center items-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">
-                                <i class="{{ $link['icon'] }}"></i>
-                            </span>
-                            <span class="flex-1 ms-3 text-left whitespace-nowrap">{{ $link['name'] }}</span>
-                            <i class="fa-solid fa-chevron-down text-xs ms-auto"></i>
-                        </button>
-                        <ul id="dropdown-{{ $index }}" class="hidden py-2 space-y-2 ml-4">
-                            @foreach ($link['submenu'] as $sub)
-                                <li>
-                                    <a href="{{ $sub['href'] }}"
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm">
-                                        {{ $sub['name'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+                        {{-- Controlamos el estado abierto/cerrado con Alpine.js detectando si la ruta actual pertenece a este módulo --}}
+                        <div x-data="{ open: {{ $link['active'] ? 'true' : 'false' }} }">
+                            <button type="button"
+                                x-on:click="open = !open"
+                                class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                :class="{ 'bg-gray-50': open }">
+                                <span class="w-6 h-6 inline-flex justify-center items-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                      :class="{ 'text-blue-600': open }">
+                                    <i class="{{ $link['icon'] }}"></i>
+                                </span>
+                                <span class="flex-1 ms-3 text-left whitespace-nowrap" :class="{ 'text-blue-600 font-semibold': open }">{{ $link['name'] }}</span>
+                                <i class="fa-solid fa-chevron-down text-xs ms-auto transition-transform duration-200"
+                                   :class="{ 'rotate-180 text-blue-600': open }"></i>
+                            </button>
+                            
+                            {{-- Lista desplegable reactiva --}}
+                            <ul x-show="open" 
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="transform opacity-0 scale-95"
+                                x-transition:enter-end="transform opacity-100 scale-100"
+                                class="py-2 space-y-2 ml-4">
+                                @foreach ($link['submenu'] as $sub)
+                                    <li>
+                                        <a href="{{ $sub['href'] }}"
+                                            class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 text-sm {{ request()->url() === $sub['href'] ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-gray-900 dark:text-gray-300' }}">
+                                            {{ $sub['name'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @else
                         <a href="{{ $link['href'] }}"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="w-6 h-6 inline-flex justify-center items-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white">
+                            class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ $link['active'] ? 'bg-blue-50 text-blue-600 font-bold dark:bg-gray-700 dark:text-blue-400' : 'text-gray-900' }}">
+                            <span class="w-6 h-6 inline-flex justify-center items-center text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white {{ $link['active'] ? 'text-blue-600 dark:text-blue-400' : '' }}">
                                 <i class="{{ $link['icon'] }}"></i>
                             </span>
                             <span class="ms-3">{{ $link['name'] }}</span>

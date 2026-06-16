@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\InsuranceController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PatientController;
